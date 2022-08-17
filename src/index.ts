@@ -1,20 +1,18 @@
-import fs from 'fs';
+import { CsvFileReader } from "./CsvFileReader";
+import { MatchResult } from "./MatchResult";
+//The data propiety in this object has the reader
+const reader = new CsvFileReader('football.csv');
+reader.read();
 
-//One big String with all the different matches
-const matches = fs.readFileSync('football.csv', {
-    encoding: 'utf-8',//What type of content we expect to be in the file
-})
-.split('\n')//Split all the csv in array of string, and every row represents a position in array
-.map((row:string):string[] => {return row.split(',')});
-
-
+const dateOfFirstMatch = reader.data[0][1];
+console.log(dateOfFirstMatch)
 let manUnitedWins = 0;
 
-for(let match of matches){
+for(let match of reader.data){
     //Represents all of diferents rows
-    if(match[1] === 'Man United' && match[5] === 'H'){
+    if(match[1] === 'Man United' && match[5] === MatchResult.HomeWin){
         manUnitedWins++;
-    }else if(match[2] === 'Man United' && match[5] === 'A'){
+    }else if(match[2] === 'Man United' && match[5] === MatchResult.AwayWin){
         manUnitedWins++;
     }
 }
