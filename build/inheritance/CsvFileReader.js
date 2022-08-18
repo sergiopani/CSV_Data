@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CsvFileReader = void 0;
 const fs_1 = __importDefault(require("fs"));
-/*STANDALONE CLASS*/
 class CsvFileReader {
     constructor(filename) {
         this.filename = filename;
@@ -19,7 +18,7 @@ class CsvFileReader {
             .split('\n') //Split all the csv in array of string, and every row represents a position in array
             .map((row) => {
             return row.split(',');
-        });
+        }).map(this.mapRow);
         //Three
     }
 }
